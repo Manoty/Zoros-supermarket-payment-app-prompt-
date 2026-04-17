@@ -5,19 +5,30 @@ from django.conf import settings
 from requests.auth import HTTPBasicAuth
 
 
+# payments/services/mpesa_service.py
+
+import requests
+from requests.auth import HTTPBasicAuth
+from django.conf import settings
+
+
 def get_access_token():
     url = f"{settings.MPESA_CONFIG['BASE_URL']}/oauth/v1/generate?grant_type=client_credentials"
 
     response = requests.get(
         url,
         auth=HTTPBasicAuth(
-            settings.MPESA_CONFIG["CONSUMER_KEY"],
-            settings.MPESA_CONFIG["CONSUMER_SECRET"]
-        )
+            settings.MPESA_CONFIG['CONSUMER_KEY'],
+            settings.MPESA_CONFIG['CONSUMER_SECRET']
+        ),
+        timeout=10
     )
 
-    return response.json().get("access_token")
+    # DEBUG (keep this for now)
+    print("MPESA TOKEN RESPONSE:", response.text)
 
+    data = response.json()
+    return data["access_token"]
 
 def generate_password():
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
