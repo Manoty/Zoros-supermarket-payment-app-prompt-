@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple import config
 
+
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -139,3 +140,12 @@ REST_FRAMEWORK = {
     ]
 }
 
+
+MPESA_CONFIG = {
+    "CONSUMER_KEY": config("MPESA_CONSUMER_KEY"),
+    "CONSUMER_SECRET": config("MPESA_CONSUMER_SECRET"),
+    "SHORTCODE": config("MPESA_SHORTCODE"),
+    "PASSKEY": config("MPESA_PASSKEY"),
+    "CALLBACK_URL": config("MPESA_CALLBACK_URL"),
+    "BASE_URL": config("MPESA_BASE_URL"),
+}
